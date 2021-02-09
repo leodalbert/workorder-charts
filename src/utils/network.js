@@ -16,7 +16,7 @@ const network = () => {
   const getAllWorkordersBySite = (techEmail, studioId) => {
     // const config = { headers };
     return axios.get(
-      `/26/api/items/workorder?limit=999999&fields=*&filter[building.site][eq]=339`
+      `https://api.onuma.com/137/items/workorder?limit=3000&fields=*&filter[building.site.site_group][eq]=1`
     );
   };
   return {
