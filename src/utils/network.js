@@ -10,7 +10,7 @@ if (inDev()) {
 }
 
 const network = () => {
-  // const baseUrl = BASE_URL;
+  const baseUrl = BASE_URL;
 
   // get all workorders by site
   const getAllWorkordersBySite = (techEmail, studioId) => {
@@ -19,8 +19,16 @@ const network = () => {
       `https://api.onuma.com/137/items/workorder?limit=3000&fields=*&filter[building.site.site_group][eq]=10&sort=-created_on`
     );
   };
+  // get site_group info
+  const getSiteGroupInfo = (site_group, studioId) => {
+    // const config = { headers };
+    return axios.get(
+      `${baseUrl}/137/api/items/site_group?fields=name,logo&filter[id]=10`
+    );
+  };
   return {
     getAllWorkordersBySite,
+    getSiteGroupInfo,
   };
 };
 

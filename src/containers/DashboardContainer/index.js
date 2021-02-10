@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import Dashboard from './components/Dashboard';
 import { getWorkordersBySite } from 'actions/workorders';
+import { getSiteGroupInfo } from 'actions/siteGroup';
 import {
   selectWorkorders,
   makeAssignedDepartmentData,
   makeWorkorderCompletionTimeData1,
   makeWorkorderCompletionTimeData2,
   makeWorkordersWeeklyData,
-  makeWorkordersWeeklyPmData,
 } from 'selectors/workorders';
 
 const mapStateToProps = (state) => ({
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => ({
   weeklyData: makeWorkordersWeeklyData(state),
 });
 
-const mapDispatchToProps = { getWorkordersBySite };
+const mapDispatchToProps = { getWorkordersBySite, getSiteGroupInfo };
 
 const DashboardContainer = connect(
   mapStateToProps,
