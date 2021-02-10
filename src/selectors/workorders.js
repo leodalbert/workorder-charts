@@ -17,42 +17,22 @@ export const selectWorkorders = (state) => selectState(state).workorders;
 export const makeAssignedDepartmentData = createSelector(
   selectWorkorders,
   (workorders) => {
-    const data = {
-      labels: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
-      datasets: [],
-    };
+    const data = [];
     const tempData = {};
-    workorders
-      .filter((workorder) =>
-        dayjs(workorder.created_on).isAfter(dayjs().subtract(7, 'year'))
-      )
-      .forEach((workorder) => {
-        const month = workorder.created_on.split('-')[1] - 1;
-        if (tempData[workorder.assigned_trade]) {
-          tempData[workorder.assigned_trade][month]
-            ? (tempData[workorder.assigned_trade][month] += 1)
-            : (tempData[workorder.assigned_trade][month] = 1);
-        } else {
-          tempData[workorder.assigned_trade] = [];
-          tempData[workorder.assigned_trade][month] = 1;
-        }
-      });
+    workorders.forEach((workorder) => {
+      const month = workorder.created_on.split('-')[1] - 1;
+      if (tempData[workorder.assigned_trade]) {
+        tempData[workorder.assigned_trade][month]
+          ? (tempData[workorder.assigned_trade][month] += 1)
+          : (tempData[workorder.assigned_trade][month] = 1);
+      } else {
+        tempData[workorder.assigned_trade] = [];
+        tempData[workorder.assigned_trade][month] = 1;
+      }
+    });
     let i = 0;
     for (let d in tempData) {
-      data.datasets.push({
+      data.push({
         label: d ? d : 'not specified',
         data: tempData[d],
         backgroundColor: colorSelector(i),
@@ -62,6 +42,37 @@ export const makeAssignedDepartmentData = createSelector(
     return data;
   }
 );
+
+// number of workorders by trade_type by month
+export const makeTradeTypeData = createSelector(
+  selectWorkorders,
+  (workorders) => {
+    const data = [];
+    const tempData = {};
+    workorders.forEach((workorder) => {
+      const month = workorder.created_on.split('-')[1] - 1;
+      if (tempData[workorder.request_type]) {
+        tempData[workorder.request_type][month]
+          ? (tempData[workorder.request_type][month] += 1)
+          : (tempData[workorder.request_type][month] = 1);
+      } else {
+        tempData[workorder.request_type] = [];
+        tempData[workorder.request_type][month] = 1;
+      }
+    });
+    let i = 0;
+    for (let d in tempData) {
+      data.push({
+        label: d ? d : 'not specified',
+        data: tempData[d],
+        backgroundColor: colorSelector(i),
+      });
+      i++;
+    }
+    return data;
+  }
+);
+
 // number of workorders per week
 export const makeWorkordersWeeklyData = createSelector(
   selectWorkorders,
@@ -98,6 +109,20 @@ export const makeWorkordersWeeklyPmData = createSelector(
         data[dayjs(workorder.created_on).week() - 1]++;
     });
     return data;
+  }
+);
+
+// all request_types in list of workorders
+export const makeSelectAllRequestTypes = createSelector(
+  selectWorkorders,
+  (workorders) => {
+    const data = {};
+    workorders.forEach((workorder) => {
+      if (!data[workorder.request_type]) {
+        data[workorder.request_type] = '';
+      }
+    });
+    return Object.keys(data);
   }
 );
 

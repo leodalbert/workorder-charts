@@ -1,7 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Tabs, Tab, Box, Typography } from '@material-ui/core';
+import { Paper, Tabs, Tab, Box } from '@material-ui/core';
+import AssgDept from 'containers/Charts/AssgDeptContainer';
+import CompletionTime from 'containers/Charts/CompletionTimeContainer';
+import TradeType from 'containers/Charts/TradeTypeContainer';
+import WeeklyLine from 'containers/Charts/WeeklyLineContainer';
+import Spinner from 'components/Common/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +26,7 @@ function TabPanel(props) {
       id={`chart-tabpanel-${index}`}
       aria-labelledby={`chart-tab-${index}`}
       {...other}>
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -46,6 +47,7 @@ function a11yProps(index) {
 export default function CenteredTabs({
   getSiteGroupInfo,
   getWorkordersBySite,
+  loading,
 }) {
   useEffect(() => {
     getSiteGroupInfo();
@@ -58,7 +60,9 @@ export default function CenteredTabs({
     setValue(newValue);
   };
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <Fragment>
       <Paper className={classes.root} elevation={2}>
         <Tabs
@@ -68,19 +72,26 @@ export default function CenteredTabs({
           textColor='inherit'
           centered
           variant='fullWidth'>
-          <Tab label='first chart' {...a11yProps(0)} />
-          <Tab label='second chart' {...a11yProps(1)} />
-          <Tab label='third chart' {...a11yProps(2)} />
+          <Tab label='work orders by trade' {...a11yProps(0)} />
+          <Tab label='Work orders by request type' {...a11yProps(1)} />
+          <Tab label='Completion Time' {...a11yProps(2)} />
+          <Tab
+            label='Open Vs Completed / Work orders vs pm jobs'
+            {...a11yProps(3)}
+          />
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        Item One
+        <AssgDept />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <TradeType />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <CompletionTime />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <WeeklyLine />
       </TabPanel>
     </Fragment>
   );
