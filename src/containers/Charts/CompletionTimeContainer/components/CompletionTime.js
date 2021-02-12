@@ -87,7 +87,7 @@ const CompletionTime = ({
   return (
     <div className={classes.root}>
       <Container className={classes.title}>
-        <Typography variant='h4' component='h4'>
+        <Typography variant='h5' component='h5'>
           Completion time for work orders by request type
         </Typography>
       </Container>
@@ -120,6 +120,9 @@ const CompletionTime = ({
               <MenuItem value={'all'}>All Workorders</MenuItem>
               {renderRequestTypes(requestTypes)}
             </Select>
+            <Typography style={{ marginTop: 20 }}>
+              Total: {outerData[0] + outerData[1] + outerData[2]}
+            </Typography>
           </FormControl>
           <FormControl fullWidth className={classes.formControl}>
             <InputLabel id='inner-data-select-label'>Inner Data</InputLabel>
@@ -132,6 +135,9 @@ const CompletionTime = ({
               <MenuItem value={'urgent'}>Urgent Priority Workorders</MenuItem>
               {renderRequestTypes(requestTypes)}
             </Select>
+            <Typography style={{ marginTop: 20 }}>
+              Total: {innerData[0] + innerData[1] + innerData[2]}
+            </Typography>
           </FormControl>
         </Grid>
       </Grid>

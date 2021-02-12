@@ -22,17 +22,17 @@ const WeeklyLine = ({ weeklyData }) => {
   return (
     <div className={classes.root}>
       <Container className={classes.title}>
-        <Typography variant='h4' component='h4'>
-          Data by week for: work orders vs PM work orders / work orders opened
-          vs closed
+        <Typography variant='h5' component='h5'>
+          Weekly work orders with share of PM jobs / Weekly work orders opened
+          and closed
         </Typography>
       </Container>
       <Container>
         <StackedArea
           workordersData={weeklyData.allWeeklyWorkorders}
           workordersPmData={weeklyData.weeklyPmWorkorders}
-          title1={'Work orders per week'}
-          title2={'Preventive maintenance work orders per week'}
+          title1={'Active work orders per week'}
+          title2={'Share of PM work orders per week'}
           borderBlack={true}
         />
         <StackedArea
@@ -40,7 +40,7 @@ const WeeklyLine = ({ weeklyData }) => {
           workordersPmData={weeklyData.weeklyCompletedWorkorders}
           title1={'Weekly work orders opened'}
           title2={'Weekly work orders closed'}
-          stacked
+          // stacked
           fill={false}
           color1={colorSelector(2)}
           color2={colorSelector(0)}

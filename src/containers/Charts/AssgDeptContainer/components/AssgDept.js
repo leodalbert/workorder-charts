@@ -52,8 +52,8 @@ const AssgDept = ({ assignedDepartmentData }) => {
   return (
     <div className={classes.root}>
       <Container className={classes.title}>
-        <Typography variant='h4' component='h4'>
-          Monthly data: work orders by assigned department
+        <Typography variant='h5' component='h5'>
+          Monthly work orders by assigned trade
         </Typography>
       </Container>
       <Container>

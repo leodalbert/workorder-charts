@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { GET_WORKORDERS_BY_SITE } from 'actions/types';
+import { GET_WORKORDERS_BY_SITE, SET_LOADING } from 'actions/types';
 
 export const initialState = {
   workorders: [],
@@ -14,6 +14,9 @@ const workorder = (state = initialState, action) =>
       case GET_WORKORDERS_BY_SITE:
         draft.workorders = payload;
         draft.loading = false;
+        break;
+      case SET_LOADING:
+        draft.loading = true;
         break;
       default:
         break;

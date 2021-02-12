@@ -20,7 +20,7 @@ export const makeAssignedDepartmentData = createSelector(
     const data = [];
     const tempData = {};
     workorders.forEach((workorder) => {
-      const month = workorder.created_on.split('-')[1] - 1;
+      const month = workorder.request_date.split('-')[1] - 1;
       if (tempData[workorder.assigned_trade]) {
         tempData[workorder.assigned_trade][month]
           ? (tempData[workorder.assigned_trade][month] += 1)
@@ -50,7 +50,7 @@ export const makeTradeTypeData = createSelector(
     const data = [];
     const tempData = {};
     workorders.forEach((workorder) => {
-      const month = workorder.created_on.split('-')[1] - 1;
+      const month = workorder.request_date.split('-')[1] - 1;
       if (tempData[workorder.request_type]) {
         tempData[workorder.request_type][month]
           ? (tempData[workorder.request_type][month] += 1)
@@ -84,11 +84,11 @@ export const makeWorkordersWeeklyData = createSelector(
       weeklyCompletedWorkorders: [...Array(52).fill(0)],
     };
     workorders.forEach((workorder) => {
-      data.allWeeklyWorkorders[dayjs(workorder.created_on).week() - 1]++;
+      data.allWeeklyWorkorders[dayjs(workorder.request_date).week() - 1]++;
       workorder.request_type === 'Preventive Maintenance' &&
-        data.weeklyPmWorkorders[dayjs(workorder.created_on).week() - 1]++;
+        data.weeklyPmWorkorders[dayjs(workorder.request_date).week() - 1]++;
       workorder.completed_date &&
-        data.weeklyOpenWorkorders[dayjs(workorder.created_on).week() - 1]++;
+        data.weeklyOpenWorkorders[dayjs(workorder.request_date).week() - 1]++;
       //   TODO is this the correct data?
       workorder.completed_date &&
         data.weeklyCompletedWorkorders[
@@ -106,7 +106,7 @@ export const makeWorkordersWeeklyPmData = createSelector(
     const data = [...Array(52).fill(0)];
     workorders.forEach((workorder) => {
       workorder.request_type === 'Preventive Maintenance' &&
-        data[dayjs(workorder.created_on).week() - 1]++;
+        data[dayjs(workorder.request_date).week() - 1]++;
     });
     return data;
   }

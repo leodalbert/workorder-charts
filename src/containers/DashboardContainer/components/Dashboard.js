@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Tabs, Tab, Box } from '@material-ui/core';
@@ -11,6 +11,7 @@ import Spinner from 'components/Common/Spinner';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginTop: '65px',
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.black,
   },
@@ -44,15 +45,7 @@ function a11yProps(index) {
   };
 }
 
-export default function CenteredTabs({
-  getSiteGroupInfo,
-  getWorkordersBySite,
-  loading,
-}) {
-  useEffect(() => {
-    getSiteGroupInfo();
-    getWorkordersBySite();
-  }, [getWorkordersBySite, getSiteGroupInfo]);
+export default function CenteredTabs({ loading }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -76,7 +69,7 @@ export default function CenteredTabs({
           <Tab label='Work orders by request type' {...a11yProps(1)} />
           <Tab label='Completion Time' {...a11yProps(2)} />
           <Tab
-            label='Open Vs Completed / Work orders vs pm jobs'
+            label='Work orders with PM jobs / Open Vs Completed'
             {...a11yProps(3)}
           />
         </Tabs>

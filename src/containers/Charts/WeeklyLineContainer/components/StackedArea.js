@@ -21,7 +21,7 @@ const genData = (
         fill,
         backgroundColor: color2,
         borderColor: borderBlack ? 'black' : color2,
-        borderWidth: borderBlack ? 1 : 3,
+        borderWidth: 1,
       },
       {
         label: title1,
@@ -29,7 +29,7 @@ const genData = (
         fill,
         backgroundColor: color1,
         borderColor: borderBlack ? 'black' : color1,
-        borderWidth: borderBlack ? 1 : 3,
+        borderWidth: 1,
       },
     ],
   };
@@ -47,6 +47,9 @@ const LineChart = ({
   borderBlack = false,
 }) => {
   const options = {
+    legend: {
+      reverse: true,
+    },
     responsive: true,
     maintainAspectRatio: false,
     scales: {

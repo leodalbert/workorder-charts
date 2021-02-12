@@ -52,8 +52,8 @@ const GroupedBar = ({ tradeTypeData }) => {
   return (
     <div className={classes.root}>
       <Container className={classes.title}>
-        <Typography variant='h4' component='h4'>
-          Monthly data: work orders by trade type
+        <Typography variant='h5' component='h5'>
+          Monthly work orders by request type
         </Typography>
       </Container>
       <Container>
